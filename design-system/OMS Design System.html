@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONE MORE STUDIO — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Page chrome (built from tokens) */
+  body { background: var(--bg); }
+  .page { max-width: 1320px; margin: 0 auto; padding: 80px 64px 120px; }
+
+  .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 18px; margin-bottom: 64px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 18px;
+    color: var(--ink-3); letter-spacing: var(--ls-mono-l); text-transform: uppercase;
+  }
+  .top .brand { color: var(--ink); letter-spacing: 0; text-transform: none; font-family: var(--font-sans); font-weight: 600; font-size: 22px; }
+  .top .brand .dot { color: var(--accent); }
+
+  h1.title {
+    font-family: var(--font-sans); font-weight: 700;
+    font-size: 96px; line-height: 0.92; letter-spacing: -0.035em;
+    margin: 0 0 24px;
+  }
+  h1.title .accent { color: var(--accent); }
+  .lede {
+    max-width: 760px; font-family: var(--font-sans); font-weight: 300;
+    font-size: 22px; line-height: 1.45; color: var(--ink-2);
+  }
+
+  section.block {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  section.block > .head {
+    display: flex; align-items: baseline; gap: 18px; margin-bottom: 32px;
+    font-family: var(--font-mono); font-size: 16px;
+    letter-spacing: var(--ls-cap); text-transform: uppercase; color: var(--ink-3);
+  }
+  section.block > .head .num { color: var(--accent); }
+  section.block > .head .bar { flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+  h2.h-section {
+    font-family: var(--font-sans); font-weight: 700;
+    font-size: 56px; line-height: 0.95; letter-spacing: -0.025em;
+    margin: 0 0 32px;
+  }
+  h2.h-section .accent { color: var(--accent); }
+
+  /* ===== Color swatches ===== */
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .swatch {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    overflow: hidden;
+  }
+  .swatch .chip-color { height: 140px; }
+  .swatch .info {
+    padding: 16px 18px 18px;
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: var(--font-mono); font-size: 14px; color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .swatch .info .name { font-family: var(--font-sans); font-size: 18px; font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
+  .swatch .info .var  { color: var(--accent); }
+  .swatch .info .hex  { color: var(--ink-2); }
+
+  /* ===== Type specimens ===== */
+  .type-row {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 32px; align-items: baseline;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .type-row .meta {
+    font-family: var(--font-mono); font-size: 14px;
+    color: var(--ink-3); letter-spacing: var(--ls-mono-m);
+    text-transform: uppercase; line-height: 1.5;
+  }
+  .type-row .meta .name { color: var(--ink); display: block; margin-bottom: 4px; }
+  .specimen-display { font-family: var(--font-sans); font-weight: 700; font-size: 96px; line-height: 0.9;  letter-spacing: -0.04em; color: var(--ink); }
+  .specimen-h-xl    { font-family: var(--font-sans); font-weight: 700; font-size: 72px; line-height: 0.92; letter-spacing: -0.035em; color: var(--ink); }
+  .specimen-h-l     { font-family: var(--font-sans); font-weight: 600; font-size: 56px; line-height: 1.0;  letter-spacing: -0.025em; color: var(--ink); }
+  .specimen-h-m     { font-family: var(--font-sans); font-weight: 600; font-size: 36px; line-height: 1.1;  letter-spacing: -0.02em;  color: var(--ink); }
+  .specimen-h-s     { font-family: var(--font-sans); font-weight: 500; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em;  color: var(--ink); }
+  .specimen-body-l  { font-family: var(--font-sans); font-weight: 300; font-size: 22px; line-height: 1.4;  color: var(--ink-2); }
+  .specimen-body    { font-family: var(--font-sans); font-weight: 300; font-size: 20px; line-height: 1.5;  color: var(--ink-2); }
+  .specimen-body-s  { font-family: var(--font-sans); font-weight: 400; font-size: 18px; line-height: 1.5;  color: var(--ink-2); }
+  .specimen-mono-s  { font-family: var(--font-mono); font-size: 18px;  letter-spacing: var(--ls-mono-s); text-transform: uppercase; color: var(--ink-3); }
+  .specimen-mono-m  { font-family: var(--font-mono); font-size: 18px;  color: var(--ink-2); }
+
+  /* ===== Spacing ===== */
+  .spacing-list { display: flex; flex-direction: column; }
+  .sp-row {
+    display: grid; grid-template-columns: 100px 100px 1fr;
+    gap: 24px; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 16px; color: var(--ink-2);
+  }
+  .sp-row .name { color: var(--ink); }
+  .sp-row .v    { color: var(--ink-3); }
+  .sp-bar { height: 16px; background: var(--accent); border-radius: 1px; }
+
+  /* ===== Component cards ===== */
+  .components { display: flex; flex-direction: column; gap: 56px; }
+  .demo {
+    display: grid; grid-template-columns: 220px 1fr; gap: 32px;
+    padding: 24px 0; border-top: 1px solid var(--line);
+  }
+  .demo .label {
+    font-family: var(--font-mono); font-size: 14px;
+    color: var(--ink-3); letter-spacing: var(--ls-cap);
+    text-transform: uppercase;
+  }
+  .demo .label .name { display:block; color: var(--ink); margin-bottom: 6px; font-size: 18px; letter-spacing: 0.04em; }
+  .demo .stage {
+    background: var(--bg-2); border: 1px solid var(--line);
+    padding: 32px;
+  }
+
+  /* ----- Eyebrow + Title pattern ----- */
+  .demo-eyebrow .ey {
+    font-family: var(--font-mono); font-size: 18px;
+    color: var(--accent); letter-spacing: var(--ls-mono-s);
+    text-transform: uppercase;
+  }
+  .demo-eyebrow h3 {
+    margin: 14px 0 0; font-family: var(--font-sans); font-weight: 700;
+    font-size: 56px; line-height: 0.95; letter-spacing: -0.025em; color: var(--ink);
+  }
+  .demo-eyebrow h3 .accent { color: var(--accent); }
+
+  /* ----- Chips ----- */
+  .demo-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ds-chip {
+    padding: 12px 20px; border: 1px solid var(--line);
+    font-family: var(--font-sans); font-weight: 500; font-size: 18px;
+    color: var(--ink); transition: border-color 120ms ease, color 120ms ease;
+  }
+  .ds-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ----- Numbered list ----- */
+  .demo-list { border-top: 1px solid var(--line); }
+  .demo-list .row {
+    display: grid; grid-template-columns: 50px 1fr auto; gap: 24px;
+    align-items: baseline;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .demo-list .row .n { font-family: var(--font-mono); font-size: 18px; color: var(--ink-3); }
+  .demo-list .row .t { font-family: var(--font-sans); font-weight: 500; font-size: 24px; letter-spacing: -0.015em; color: var(--ink); }
+  .demo-list .row .s { font-family: var(--font-mono); font-size: 14px; color: var(--ink-3); letter-spacing: var(--ls-mono-l); text-transform: uppercase; }
+  .demo-list .row:hover .t { color: var(--accent); }
+
+  /* ----- Comp grid ----- */
+  .demo-comp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+  }
+  .demo-comp-grid .cmp {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 16px 18px;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    min-height: 110px;
+  }
+  .demo-comp-grid .cmp .i { font-family: var(--font-mono); font-size: 16px; color: var(--accent); letter-spacing: var(--ls-mono-m); }
+  .demo-comp-grid .cmp .t { font-family: var(--font-sans); font-weight: 600; font-size: 20px; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); }
+  .demo-comp-grid .cmp .d { font-family: var(--font-mono); font-size: 14px; color: var(--ink-3); line-height: 1.35; }
+
+  /* ----- Process rail ----- */
+  .demo-rail {
+    position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  }
+  .demo-rail::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 24px;
+    height: 1px; background: var(--line);
+  }
+  .demo-rail .step { position: relative; padding-top: 50px; }
+  .demo-rail .step .dot {
+    position: absolute; top: 17px; left: 0;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg-2); border: 2px solid var(--accent); box-sizing: border-box;
+  }
+  .demo-rail .step .dot.fill { background: var(--accent); }
+  .demo-rail .step .n { font-family: var(--font-mono); font-size: 14px; color: var(--accent); letter-spacing: var(--ls-mono-m); }
+  .demo-rail .step .t { font-family: var(--font-sans); font-weight: 600; font-size: 20px; margin-top: 6px; letter-spacing: -0.01em; line-height: 1.1; color: var(--ink); }
+  .demo-rail .step .d { margin-top: 8px; font-family: var(--font-sans); font-weight: 300; font-size: 14px; color: var(--ink-2); line-height: 1.35; }
+
+  /* ----- Stat ----- */
+  .demo-stats { display: flex; gap: 64px; flex-wrap: wrap; }
+  .demo-stats .stat .n { font-family: var(--font-sans); font-weight: 700; font-size: 56px; line-height: 1; color: var(--accent); letter-spacing: -0.03em; }
+  .demo-stats .stat .l { margin-top: 8px; font-family: var(--font-mono); font-size: 14px; color: var(--ink-3); text-transform: uppercase; letter-spacing: var(--ls-mono-l); }
+
+  /* ----- Chrome bar ----- */
+  .demo-chrome {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0;
+    font-family: var(--font-mono); font-size: 16px;
+    color: var(--ink-3); letter-spacing: var(--ls-mono-m); text-transform: uppercase;
+  }
+  .demo-chrome.top { border-bottom: 1px solid var(--line); }
+  .demo-chrome.bot { border-top: 1px solid var(--line); margin-top: 24px; }
+  .demo-chrome .brand { color: var(--ink); letter-spacing: 0; text-transform: none; font-family: var(--font-sans); font-weight: 600; font-size: 18px; }
+  .demo-chrome .brand .dot { color: var(--accent); }
+
+  /* ----- Voice / principles ----- */
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .principle {
+    padding: 24px; border: 1px solid var(--line); background: var(--bg-2);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .principle .k { font-family: var(--font-mono); font-size: 14px; color: var(--accent); letter-spacing: var(--ls-mono-m); text-transform: uppercase; }
+  .principle .t { font-family: var(--font-sans); font-weight: 600; font-size: 24px; color: var(--ink); letter-spacing: -0.015em; }
+  .principle .d { font-family: var(--font-sans); font-weight: 300; font-size: 16px; color: var(--ink-2); line-height: 1.5; }
+
+  /* ----- Code snippet ----- */
+  pre.code {
+    margin: 0;
+    background: #0e0e0e;
+    border: 1px solid var(--line);
+    padding: 20px 24px;
+    font-family: var(--font-mono); font-size: 14px; line-height: 1.6;
+    color: var(--ink-2); white-space: pre;
+    overflow-x: auto;
+  }
+  pre.code .t { color: var(--accent); }
+  pre.code .c { color: var(--ink-3); }
+
+  footer.foot {
+    margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 14px; color: var(--ink-3);
+    letter-spacing: var(--ls-mono-m); text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <span class="brand">ONE MORE STUDIO<span class="dot">.</span></span>
+    <span>DESIGN SYSTEM · v1 · 2026</span>
+  </div>
+
+  <h1 class="title">Design system<span class="accent">.</span></h1>
+  <p class="lede">Тёмная техническая система: монохромная база, оранжевый акцент, монотипы для меток и нумерации, плотная сетка с тонкими разделителями. Один токен-файл (<span style="font-family:var(--font-mono); color:var(--accent)">tokens.css</span>) — для импорта в любой продукт.</p>
+
+  <!-- ============ COLORS ============ -->
+  <section class="block">
+    <div class="head"><span class="num">01</span><span>COLOR</span><span class="bar"></span></div>
+    <h2 class="h-section">Палитра<span class="accent">.</span></h2>
+
+    <div style="font-family:var(--font-mono); font-size:14px; color:var(--ink-3); letter-spacing:var(--ls-cap); text-transform:uppercase; margin-bottom: 14px;">Surface</div>
+    <div class="swatches" style="margin-bottom: 32px;">
+      <div class="swatch"><div class="chip-color" style="background:#000"></div><div class="info"><span class="name">Page</span><span class="var">--bg-page</span><span class="hex">#000000</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#141414"></div><div class="info"><span class="name">Surface</span><span class="var">--bg</span><span class="hex">#141414</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#1c1c1c"></div><div class="info"><span class="name">Surface raised</span><span class="var">--bg-2</span><span class="hex">#1c1c1c</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#222"></div><div class="info"><span class="name">Surface elev</span><span class="var">--bg-3</span><span class="hex">#222222</span></div></div>
+    </div>
+
+    <div style="font-family:var(--font-mono); font-size:14px; color:var(--ink-3); letter-spacing:var(--ls-cap); text-transform:uppercase; margin-bottom: 14px;">Ink (text)</div>
+    <div class="swatches" style="margin-bottom: 32px;">
+      <div class="swatch"><div class="chip-color" style="background:#f0ede8"></div><div class="info"><span class="name">Ink primary</span><span class="var">--ink-1</span><span class="hex">#f0ede8</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#b8b4ac"></div><div class="info"><span class="name">Ink body</span><span class="var">--ink-2</span><span class="hex">#b8b4ac</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#6d6a64"></div><div class="info"><span class="name">Ink mute</span><span class="var">--ink-3</span><span class="hex">#6d6a64</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#2a2a2a"></div><div class="info"><span class="name">Line</span><span class="var">--line</span><span class="hex">#2a2a2a</span></div></div>
+    </div>
+
+    <div style="font-family:var(--font-mono); font-size:14px; color:var(--ink-3); letter-spacing:var(--ls-cap); text-transform:uppercase; margin-bottom: 14px;">Accent</div>
+    <div class="swatches">
+      <div class="swatch"><div class="chip-color" style="background:#e87840"></div><div class="info"><span class="name">Accent</span><span class="var">--accent</span><span class="hex">#e87840</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#ffb26b"></div><div class="info"><span class="name">Accent lifted</span><span class="var">--accent-2</span><span class="hex">#ffb26b</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#ffd166"></div><div class="info"><span class="name">Cluster · Art</span><span class="var">--cluster-art</span><span class="hex">#ffd166</span></div></div>
+      <div class="swatch"><div class="chip-color" style="background:#58a6ff"></div><div class="info"><span class="name">Cluster · Tech</span><span class="var">--cluster-tech</span><span class="hex">#58a6ff</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ TYPE ============ -->
+  <section class="block">
+    <div class="head"><span class="num">02</span><span>TYPE</span><span class="bar"></span></div>
+    <h2 class="h-section">Типографика<span class="accent">.</span></h2>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px;">
+      <div style="border: 1px solid var(--line); padding: 24px; background: var(--bg-2);">
+        <div style="font-family:var(--font-mono); font-size: 14px; color: var(--ink-3); letter-spacing: var(--ls-cap); text-transform: uppercase; margin-bottom: 16px;">Sans · UI / Heading</div>
+        <div style="font-family:var(--font-sans); font-weight: 700; font-size: 64px; letter-spacing: -0.04em; line-height: 1; color: var(--ink);">Manrope</div>
+        <div style="margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 14px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase;">
+          <span>300</span><span>400</span><span>500</span><span>600</span><span>700</span>
+        </div>
+      </div>
+      <div style="border: 1px solid var(--line); padding: 24px; background: var(--bg-2);">
+        <div style="font-family:var(--font-mono); font-size: 14px; color: var(--ink-3); letter-spacing: var(--ls-cap); text-transform: uppercase; margin-bottom: 16px;">Mono · Labels / Code</div>
+        <div style="font-family: var(--font-mono); font-weight: 600; font-size: 56px; letter-spacing: -0.02em; line-height: 1; color: var(--ink);">JetBrains</div>
+        <div style="margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 14px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase;">
+          <span>400</span><span>500</span><span>600</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-row"><div class="meta"><span class="name">Display</span>148px / 700 / -0.04em</div><div class="specimen-display">One More.</div></div>
+    <div class="type-row"><div class="meta"><span class="name">H · XL</span>108px / 700 / -0.035em</div><div class="specimen-h-xl">Личная ответственность<span style="color:var(--accent)">.</span></div></div>
+    <div class="type-row"><div class="meta"><span class="name">H · L</span>72px / 600 / -0.025em</div><div class="specimen-h-l">Сеть специалистов</div></div>
+    <div class="type-row"><div class="meta"><span class="name">H · M</span>48px / 600 / -0.02em</div><div class="specimen-h-m">Полный цикл проекта</div></div>
+    <div class="type-row"><div class="meta"><span class="name">H · S</span>28px / 500 / -0.01em</div><div class="specimen-h-s">Подзаголовок секции</div></div>
+    <div class="type-row"><div class="meta"><span class="name">Body · L</span>28px / 300</div><div class="specimen-body-l">Полный цикл создания интерактивных пространств — от концепта до запуска.</div></div>
+    <div class="type-row"><div class="meta"><span class="name">Body</span>26px / 300</div><div class="specimen-body">Студия закрывает все этапы своими силами, без передачи контроля внешним подрядчикам.</div></div>
+    <div class="type-row"><div class="meta"><span class="name">Body · S</span>24px / 400</div><div class="specimen-body-s">Минимальный размер текста в макетах. Используется для подписей и описаний.</div></div>
+    <div class="type-row"><div class="meta"><span class="name">Mono · S</span>24px / 0.06em / UPPER</div><div class="specimen-mono-s">// что мы делаем</div></div>
+    <div class="type-row"><div class="meta"><span class="name">Mono · M</span>24px</div><div class="specimen-mono-m">OMS-2026 · Services</div></div>
+  </section>
+
+  <!-- ============ SPACING ============ -->
+  <section class="block">
+    <div class="head"><span class="num">03</span><span>SPACING</span><span class="bar"></span></div>
+    <h2 class="h-section">Шкала отступов<span class="accent">.</span></h2>
+
+    <div class="spacing-list">
+      <div class="sp-row"><span class="name">--sp-1</span><span class="v">4px</span><div class="sp-bar" style="width: 4px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-2</span><span class="v">8px</span><div class="sp-bar" style="width: 8px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-3</span><span class="v">12px</span><div class="sp-bar" style="width: 12px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-4</span><span class="v">16px</span><div class="sp-bar" style="width: 16px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-5</span><span class="v">24px</span><div class="sp-bar" style="width: 24px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-6</span><span class="v">32px</span><div class="sp-bar" style="width: 32px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-7</span><span class="v">48px</span><div class="sp-bar" style="width: 48px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-8</span><span class="v">64px</span><div class="sp-bar" style="width: 64px;"></div></div>
+      <div class="sp-row"><span class="name">--sp-9</span><span class="v">96px</span><div class="sp-bar" style="width: 96px;"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS ============ -->
+  <section class="block">
+    <div class="head"><span class="num">04</span><span>COMPONENTS</span><span class="bar"></span></div>
+    <h2 class="h-section">Компоненты<span class="accent">.</span></h2>
+
+    <div class="components">
+
+      <div class="demo demo-eyebrow">
+        <div class="label"><span class="name">Eyebrow + Title</span>section header</div>
+        <div class="stage">
+          <div class="ey">// что мы делаем</div>
+          <h3>Проекты и компетенции<span class="accent">.</span></h3>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Chrome bar</span>top + bottom rails</div>
+        <div class="stage">
+          <div class="demo-chrome top"><span class="brand">ONE MORE STUDIO<span class="dot">.</span></span><span>05 / 13 · SERVICES</span></div>
+          <div style="font-family: var(--font-sans); font-weight: 300; font-size: 18px; color: var(--ink-2); padding: 24px 0;">Контент секции…</div>
+          <div class="demo-chrome bot"><span>OMS-2026 · SERVICES</span><span>PAGE 05</span></div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Chips</span>plashki — clients, projects</div>
+        <div class="stage">
+          <div class="demo-chips">
+            <div class="ds-chip">Музейные экспозиции</div>
+            <div class="ds-chip">Временные выставки</div>
+            <div class="ds-chip">Корпоративные стенды</div>
+            <div class="ds-chip">Коммерческие пространства</div>
+            <div class="ds-chip">Арт-инсталляции и шоу</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Numbered list</span>services / formats</div>
+        <div class="stage">
+          <div class="demo-list">
+            <div class="row"><span class="n">01</span><span class="t">Музейные экспозиции</span><span class="s">Постоянные</span></div>
+            <div class="row"><span class="n">02</span><span class="t">Временные выставки</span><span class="s">2–6 мес</span></div>
+            <div class="row"><span class="n">03</span><span class="t">Корпоративные стенды</span><span class="s">B2B</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Comp grid</span>4-up · competencies</div>
+        <div class="stage">
+          <div class="demo-comp-grid">
+            <div class="cmp"><span class="i">01</span><span class="t">Креатив и сценарии</span><span class="d">Концепция, нарратив, кураторство</span></div>
+            <div class="cmp"><span class="i">02</span><span class="t">Архитектура и дизайн</span><span class="d">Концепции, инсталляции, визуальный язык</span></div>
+            <div class="cmp"><span class="i">03</span><span class="t">Мультимедийные системы</span><span class="d">Проектирование, AR / VR / mapping</span></div>
+            <div class="cmp"><span class="i">04</span><span class="t">Контент и графика</span><span class="d">2D/3D, моушн, CGI, анимация</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Process rail</span>numbered timeline</div>
+        <div class="stage">
+          <div class="demo-rail">
+            <div class="step"><div class="dot fill"></div><div class="n">STEP.01</div><div class="t">Бриф</div><div class="d">Знакомство, цели</div></div>
+            <div class="step"><div class="dot"></div><div class="n">STEP.02</div><div class="t">Концепция</div><div class="d">Креативная идея</div></div>
+            <div class="step"><div class="dot"></div><div class="n">STEP.03</div><div class="t">Дизайн</div><div class="d">Визуальный язык</div></div>
+            <div class="step"><div class="dot"></div><div class="n">STEP.04</div><div class="t">Производство</div><div class="d">Сборка, монтаж</div></div>
+            <div class="step"><div class="dot"></div><div class="n">STEP.05</div><div class="t">Запуск</div><div class="d">Открытие, сдача</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="label"><span class="name">Stat</span>headline number</div>
+        <div class="stage">
+          <div class="demo-stats">
+            <div class="stat"><div class="n">12+</div><div class="l">Лет опыта</div></div>
+            <div class="stat"><div class="n">80+</div><div class="l">Реализованных проектов</div></div>
+            <div class="stat"><div class="n">3</div><div class="l">Партнёра-руководителя</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ VOICE ============ -->
+  <section class="block">
+    <div class="head"><span class="num">05</span><span>VOICE</span><span class="bar"></span></div>
+    <h2 class="h-section">Тон и принципы<span class="accent">.</span></h2>
+    <div class="principles">
+      <div class="principle">
+        <span class="k">// принцип 01</span>
+        <span class="t">Короткие утверждения с точкой.</span>
+        <span class="d">Заголовок — одно ёмкое предложение, всегда заканчивается оранжевой акцентной точкой. Без многоточий и восклицаний.</span>
+      </div>
+      <div class="principle">
+        <span class="k">// принцип 02</span>
+        <span class="t">Метки // моноширинным.</span>
+        <span class="d">Eyebrow-метки, заголовки колонок, нумерация — всегда JetBrains Mono в верхнем регистре, с трекингом 0.06–0.16em.</span>
+      </div>
+      <div class="principle">
+        <span class="k">// принцип 03</span>
+        <span class="t">Тонкие линии, без теней.</span>
+        <span class="d">Все группировки — через 1px бордер цветом <span style="color:var(--accent); font-family:var(--font-mono)">--line</span>. Никаких box-shadow, glow, blur.</span>
+      </div>
+      <div class="principle">
+        <span class="k">// принцип 04</span>
+        <span class="t">Оранжевый — точечно.</span>
+        <span class="d">Акцент работает как маркер: точка, дот процесса, hover, цифра в стате. Не делает заливку и не используется как фон.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ USAGE ============ -->
+  <section class="block">
+    <div class="head"><span class="num">06</span><span>USAGE</span><span class="bar"></span></div>
+    <h2 class="h-section">Подключение<span class="accent">.</span></h2>
+
+    <pre class="code"><span class="c">/* 1. Подключи токены */</span>
+&lt;link rel="stylesheet" href="tokens.css"&gt;
+
+<span class="c">/* 2. Подключи шрифты */</span>
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;
+
+<span class="c">/* 3. Используй CSS-переменные */</span>
+.button {
+  background: <span class="t">var(--accent)</span>;
+  color: <span class="t">var(--bg)</span>;
+  font-family: <span class="t">var(--font-sans)</span>;
+  font-weight: <span class="t">500</span>;
+  padding: <span class="t">var(--sp-3)</span> <span class="t">var(--sp-5)</span>;
+  border: 0;
+}</pre>
+  </section>
+
+  <footer class="foot">
+    <span>ONE MORE STUDIO · DESIGN SYSTEM</span>
+    <span>v1 · 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

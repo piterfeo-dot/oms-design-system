@@ -1,0 +1,190 @@
+/* ============================================================
+   ONE MORE STUDIO — Design Tokens
+   Source: ONE MORE STUDIO - Deck v3.html
+   ============================================================ */
+
+:root {
+  /* ===== Color · Surface ===== */
+  --bg:        #141414;   /* primary surface */
+  --bg-2:      #1c1c1c;   /* raised surface  */
+  --bg-3:      #222222;   /* elevated card   */
+  --bg-page:   #000000;   /* page / letterbox */
+
+  /* ===== Color · Lines ===== */
+  --line:      #2a2a2a;   /* default border / divider */
+  --line-soft: #202020;   /* subtle divider           */
+
+  /* ===== Color · Text ===== */
+  --ink:       #f0ede8;   /* primary text  (alias: --ink-1) */
+  --ink-1:     #f0ede8;
+  --ink-2:     #b8b4ac;   /* secondary / body */
+  --ink-3:     #6d6a64;   /* tertiary / mono micro */
+
+  /* ===== Color · Accent ===== */
+  --accent:    #e87840;   /* primary accent — orange */
+  --accent-2:  #ffb26b;   /* lifted accent / hover  */
+
+  /* ===== Color · Cluster (used for grouping in grids) ===== */
+  --cluster-art:        #ffd166;
+  --cluster-tech:       #58a6ff;
+  --cluster-production: var(--accent);
+
+  /* ===== Type · Family ===== */
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ===== Type · Scale (1920×1080 design grid) ===== */
+  --fs-display: 148px;   /* hero, cover  */
+  --fs-h-xl:    108px;   /* slide titles */
+  --fs-h-l:     72px;
+  --fs-h-m:     48px;
+  --fs-h-s:     28px;
+  --fs-body-l:  28px;
+  --fs-body:    26px;
+  --fs-body-s:  24px;    /* min text size */
+  --fs-mono:    24px;
+
+  /* ===== Type · Weight ===== */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ===== Type · Tracking ===== */
+  --ls-display: -0.04em;
+  --ls-tight:   -0.035em;
+  --ls-snug:    -0.02em;
+  --ls-normal:  -0.005em;
+  --ls-mono-s:   0.06em;
+  --ls-mono-m:   0.08em;
+  --ls-mono-l:   0.12em;
+  --ls-cap:      0.16em;
+
+  /* ===== Spacing scale ===== */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+
+  /* ===== Slide / page chrome ===== */
+  --slide-pad-x: 96px;
+  --slide-pad-y: 120px;
+  --slide-w:    1920px;
+  --slide-h:    1080px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* ============================================================
+   Type utilities (mirror deck classes)
+   ============================================================ */
+.h-display { font-family: var(--font-sans); font-weight: var(--fw-bold);     font-size: var(--fs-display); line-height: 0.9;  letter-spacing: var(--ls-display); }
+.h-xl      { font-weight: var(--fw-bold);     font-size: var(--fs-h-xl);    line-height: 0.92; letter-spacing: var(--ls-tight); }
+.h-l       { font-weight: var(--fw-semibold); font-size: var(--fs-h-l);     line-height: 1.0;  letter-spacing: -0.025em; }
+.h-m       { font-weight: var(--fw-semibold); font-size: var(--fs-h-m);     line-height: 1.1;  letter-spacing: var(--ls-snug); }
+.h-s       { font-weight: var(--fw-medium);   font-size: var(--fs-h-s);     line-height: 1.25; letter-spacing: -0.01em; }
+
+.body-l    { font-weight: var(--fw-light);    font-size: var(--fs-body-l);  line-height: 1.4;  color: var(--ink-2); }
+.body      { font-weight: var(--fw-light);    font-size: var(--fs-body);    line-height: 1.5;  color: var(--ink-2); }
+.body-s    { font-weight: var(--fw-regular);  font-size: var(--fs-body-s);  line-height: 1.5;  color: var(--ink-2); }
+
+.mono      { font-family: var(--font-mono); }
+.mono-s    { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: var(--ls-mono-s); text-transform: uppercase; color: var(--ink-3); }
+.mono-m    { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--ink-2); }
+
+.accent    { color: var(--accent); }
+.ink-2     { color: var(--ink-2); }
+.ink-3     { color: var(--ink-3); }
+
+/* Brand period — orange dot at end of headings */
+.h-xl .accent, .h-l .accent, .h-m .accent { color: var(--accent); }
+
+/* ============================================================
+   Atoms — accent marks
+   ============================================================ */
+.accent-dot  { display: inline-block; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; vertical-align: baseline; }
+.accent-tick { display: inline-block; width: 24px; height: 2px;  background: var(--accent); vertical-align: middle; }
+
+/* ============================================================
+   Components
+   ============================================================ */
+
+/* Section eyebrow — // что мы делаем */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--accent);
+  letter-spacing: var(--ls-mono-s);
+}
+
+/* Chip / plashka (clients, projects) */
+.chip {
+  display: inline-flex; align-items: center;
+  padding: 14px 22px;
+  border: 1px solid var(--line);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-body-s);
+  letter-spacing: var(--ls-normal);
+  color: var(--ink);
+  background: transparent;
+  cursor: default;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Numbered row (services / process / formats) */
+.row-numbered {
+  display: grid; grid-template-columns: 60px 1fr auto; gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.row-numbered .n { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--ink-3); }
+.row-numbered .t { font-weight: var(--fw-medium); font-size: 32px; letter-spacing: -0.015em; color: var(--ink); }
+.row-numbered .s { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--ink-3); text-transform: uppercase; letter-spacing: var(--ls-mono-l); }
+.row-numbered:hover .t { color: var(--accent); }
+
+/* Comp grid cell (4-up competencies) */
+.comp-cell {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line);
+  min-height: 116px;
+}
+.comp-cell .i { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--accent); letter-spacing: var(--ls-mono-m); }
+.comp-cell .t { font-weight: var(--fw-semibold); font-size: 26px; letter-spacing: -0.01em; line-height: 1.15; color: var(--ink); }
+.comp-cell .d { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--ink-3); line-height: 1.35; }
+
+/* Stat */
+.stat .n { font-weight: var(--fw-bold); font-size: 64px; line-height: 1; color: var(--accent); letter-spacing: -0.03em; }
+.stat .l { margin-top: 10px; font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--ink-3); text-transform: uppercase; letter-spacing: var(--ls-mono-l); }
+
+/* Chrome bars (top/bottom of slides — adapt to header/footer on web) */
+.chrome-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--ink-3);
+  letter-spacing: var(--ls-mono-m);
+  text-transform: uppercase;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+.chrome-bar.top { border-top: 0; border-bottom: 1px solid var(--line); }
+.chrome-bar .brand { color: var(--ink); font-weight: var(--fw-medium); letter-spacing: 0; text-transform: none; }
+.chrome-bar .brand .dot { color: var(--accent); }
